@@ -22,11 +22,7 @@ bool LocalDebugLogger::receiveMessage(String message) {
 bool LocalDebugLogger::writeLog(String message) {
 	String data = TimeInterface::getFormattedTime("%m-%d-%Y %T") + ": ";
 	if (!Storage::fileExists(log_path)) {
-		if (!Storage::writeFile(log_path, data + message)) {
-			return false;
-		} else {
-			return true;
-		}
+		 return Storage::writeFile(log_path, data + message);
 	} else {
 		return Storage::appendToFile(log_path, data + message);
 	}
