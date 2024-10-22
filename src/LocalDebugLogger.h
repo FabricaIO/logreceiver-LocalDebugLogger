@@ -7,6 +7,7 @@
 #include <LogReceiver.h>
 #include <Storage.h>
 #include <TimeInterface.h>
+#include <vector>
 
 /// @brief Logs to the local storage
 class LocalDebugLogger : public LogReceiver {
@@ -18,5 +19,13 @@ class LocalDebugLogger : public LogReceiver {
 	protected:		
 		/// @brief Path to log file
 		String log_path;
+
+		/// @brief Caches boot messages until storage is mounted
+		std::vector<String> startup_cache;
+
+		/// @brief Indicates the cached messages have been flushed
+		bool cache_flushed = false;
+
 		bool writeLog(String message);
+
 };
