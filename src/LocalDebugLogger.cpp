@@ -2,7 +2,7 @@
 
 /// @brief Creates a local debug logger
 /// @param LogPath The path to the log file
-LocalDebugLogger::LocalDebugLogger(String LogPath ) {
+LocalDebugLogger::LocalDebugLogger(String LogPath) {
 	log_path = LogPath;
 	Description.name = "Local Debug Logger";
 	Description.version = "0.8";

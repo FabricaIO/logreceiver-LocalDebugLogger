@@ -7,7 +7,7 @@
 #include <LogReceiver.h>
 #include <Storage.h>
 
-/// @brief Logs to the Arduino serial output
+/// @brief Logs to the local storage
 class LocalDebugLogger : public LogReceiver {
 	public:
 		LocalDebugLogger(String LogPath = "/debug.log");
@@ -15,7 +15,7 @@ class LocalDebugLogger : public LogReceiver {
 		bool receiveMessage(String message);
 
 	protected:		
-		/// @brief Path to configuration file
+		/// @brief Path to log file
 		String log_path;
 		bool writeLog(String message);
 };
