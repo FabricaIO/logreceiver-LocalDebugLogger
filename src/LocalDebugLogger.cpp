@@ -23,6 +23,7 @@ bool LocalDebugLogger::writeLog(String message) {
 	String data = TimeInterface::getFormattedTime("%m-%d-%Y %T") + ": " + message;
 	if (Storage::getMediaType() == Storage::Media::Not_Ready) {
 		startup_cache.push_back(data);
+		return true;
 	} else {
 		if (!cache_flushed) {
 			for (const auto& line : startup_cache) {
