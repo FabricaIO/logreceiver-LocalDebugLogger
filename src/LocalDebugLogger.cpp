@@ -33,6 +33,8 @@ bool LocalDebugLogger::writeLog(String message) {
 					Storage::appendToFile(log_path, line);
 				}
 			}
+			startup_cache.clear();
+			startup_cache.shrink_to_fit();
 			cache_flushed = true;
 		}
 		if (!Storage::fileExists(log_path)) {
