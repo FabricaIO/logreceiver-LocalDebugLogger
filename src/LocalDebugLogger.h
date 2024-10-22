@@ -6,6 +6,7 @@
 
 #include <LogReceiver.h>
 #include <Storage.h>
+#include <TimeInterface.h>
 
 /// @brief Logs to the local storage
 class LocalDebugLogger : public LogReceiver {

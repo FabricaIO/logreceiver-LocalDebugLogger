@@ -20,13 +20,14 @@ bool LocalDebugLogger::receiveMessage(String message) {
 /// @param message The message to write
 /// @return True on success
 bool LocalDebugLogger::writeLog(String message) {
+	String data = TimeInterface::getFormattedTime("%m-%d-%Y %T") + ": ";
 	if (!Storage::fileExists(log_path)) {
-		if (!Storage::writeFile(log_path, message)) {
+		if (!Storage::writeFile(log_path, data + message)) {
 			return false;
 		} else {
 			return true;
 		}
 	} else {
-		return Storage::appendToFile(log_path, message);
+		return Storage::appendToFile(log_path, data + message);
 	}
 }
