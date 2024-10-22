@@ -9,38 +9,49 @@ LocalDebugLogger::LocalDebugLogger(String LogPath) {
 }
 
 bool LocalDebugLogger::receiveMessage(char message) {
-	return writeLog(String(message));
+	if (message != '\n' && message != '\r') {
+		return writeLog(String(message));
+	} else {
+		return true;
+	}
 }
 
 bool LocalDebugLogger::receiveMessage(String message) {
-	return writeLog(message);
+	if (message != "\r\n") {
+		return writeLog(message);
+	} else {
+		return true;
+	}
 }
 
 /// @brief Writes a message to the log file
 /// @param message The message to write
 /// @return True on success
 bool LocalDebugLogger::writeLog(String message) {
-	String data = TimeInterface::getFormattedTime("%m-%d-%Y %T") + ": " + message;
+	String data = TimeInterface::getFormattedTime("%m-%d-%Y %T") + ": " + message + "\n";
 	if (Storage::getMediaType() == Storage::Media::Not_Ready) {
 		startup_cache.push_back(data);
 		return true;
 	} else {
 		if (!cache_flushed) {
+			file_system = Storage::getFileSystem();
+			if (!file_system->exists(log_path)) {
+				File f = file_system->open(log_path, FILE_WRITE);
+				f.print("");
+				f.close();
+			}
+			File f = file_system->open(log_path, FILE_APPEND);
 			for (const auto& line : startup_cache) {
-				if (!Storage::fileExists(log_path)) {
-						Storage::writeFile(log_path, line);
-				} else {
-					Storage::appendToFile(log_path, line);
-				}
+				f.print(line);
 			}
 			startup_cache.clear();
 			startup_cache.shrink_to_fit();
 			cache_flushed = true;
+			f.close();
 		}
-		if (!Storage::fileExists(log_path)) {
-			return Storage::writeFile(log_path, data);
-		} else {
-			return Storage::appendToFile(log_path, data);
-		}
+		File f = file_system->open(log_path, FILE_APPEND);
+		bool success = f.print(data) > 0;
+		f.close();
+		return success;
 	}
 }
