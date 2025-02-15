@@ -1,0 +1,45 @@
+{
+	"name": "Fabrica-IO Log Receiver Local Debug",
+	"version": "0.5.0",
+	"description": "Logs all message to local storage. Debug use only",
+	"keywords": "Fabrica-IO, log receiver, local",
+	"repository":
+	{
+	  "type": "git",
+	  "url": "https://github.com/FabricaIO/logreceiver-LocalDebugLogger.git"
+	},
+	"authors":
+	[
+	  {
+		"name": "Sam Groveman",
+		"email": "SamGroveman@outlook.com",
+		"url": "https://github.com/FabricaIO"
+	  }
+	],
+	"dependencies": {
+		
+	  },
+	"license": "GPLv3",
+	"homepage": "https://github.com/FabricaIO",
+	"frameworks": "arduino",
+	"platforms": "*",
+	"fabrica-io" : {
+		"name": "DebugLog",
+		"type": 2,
+		"category": "Log",
+		"libname": "LocalDebugLogger",
+		"includes": ["LocalDebugLogger"],
+		"description": "Logs all message to local storage. Debug use only",
+		"constructor":
+		[
+			[
+				{
+					"name": "HWSerial",
+					"type": "String",
+					"description": "File to log to",
+					"default": "/debug.log"
+				}
+			]
+		]
+	}
+  }
