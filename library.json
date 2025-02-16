@@ -1,5 +1,5 @@
 {
-	"name": "Fabrica-IO Log Receiver Local Debug",
+	"name": "logreceiver-LocalDebugLogger",
 	"version": "0.5.0",
 	"description": "Logs all message to local storage. Debug use only",
 	"keywords": "Fabrica-IO, log receiver, local",
